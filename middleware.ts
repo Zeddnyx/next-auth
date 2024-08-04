@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { withAuth, NextRequestWithAuth } from "next-auth/middleware";
 import { configs } from "./configs";
 
-const UNAUTHENTICATED_PATHS = ["/free", "/sign-in"];
+const UNAUTHENTICATED_PATHS = ["/free", "/sign-in", "/sign-up"];
 
 export default withAuth(
   function middleware(request: NextRequestWithAuth) {

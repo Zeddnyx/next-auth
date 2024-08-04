@@ -6,7 +6,7 @@ import { authCredentials } from "@/configs/credentials";
 import { useLoading } from "../layout/layout-loading";
 
 export default function Form() {
-  const [form, setForm] = useState({ email: "", password: "" });
+  const [form, setForm] = useState({ email: "", password: "", name: "" });
   const { setLoading, clearLoading } = useLoading();
 
   const handleSubmit = async (event: any) => {
@@ -14,17 +14,17 @@ export default function Form() {
     if (!form.email || !form.password) return;
     setLoading();
     try {
-      await signIn(authCredentials.signIn, {
+      await signIn(authCredentials.signUp, {
+        name: form.name,
         email: form.email,
         password: form.password,
-        redirect: false,
       }).then((res) => {
         if (res?.ok) {
-          window.location.href = "/";
+          window.location.href = "/sign-in";
         }
       });
     } catch (error) {
-      console.error("Error during sign in:", error);
+      console.error("Error during sign up:", error);
     } finally {
       clearLoading();
     }
@@ -37,6 +37,13 @@ export default function Form() {
   return (
     <div className="sign_parent">
       <form className="sign_form" onSubmit={handleSubmit}>
+        <input
+          type="text"
+          name="name"
+          placeholder="name"
+          value={form.name}
+          onChange={(e) => setForm({ ...form, name: e.target.value })}
+        />
         <input
           type="email"
           name="email"

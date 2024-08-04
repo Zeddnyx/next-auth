@@ -13,7 +13,6 @@ import GoogleProvider from "next-auth/providers/google";
 
 export async function getSession() {
   const session: any = await getServerSession(auth);
-  console.log(session, "session");
   return session;
 }
 
@@ -29,6 +28,28 @@ const auth: NextAuthOptions = {
     GoogleProvider({
       clientId: configs.GOOGLE_ID || "",
       clientSecret: configs.GOOGLE_SECRET || "",
+    }),
+    CredentialsProvider({
+      id: authCredentials.signUp,
+      name: "Complete Your Credentials",
+      credentials: {},
+      async authorize(credentials: any): Promise<any> {
+        const payload = {
+          name: credentials?.name,
+          email: credentials?.email,
+          password: credentials?.password,
+        };
+        try {
+          const data: any = await Http.auth.register({ ...payload });
+          return {
+            token: data.token,
+            email: credentials?.email,
+            name: credentials?.name,
+          };
+        } catch (error: any) {
+          throw new Error(error?.response?.data?.message);
+        }
+      },
     }),
     CredentialsProvider({
       id: authCredentials.signIn,
