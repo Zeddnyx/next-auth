@@ -6,7 +6,7 @@ export default async function Page() {
   const session: any = await getServerSession(auth);
 
   return (
-    <section style={{ display: "grid" }}>
+    <section className="wrapper">
       Welcome {session?.user?.name}
       <ButtonSignOut />
     </section>

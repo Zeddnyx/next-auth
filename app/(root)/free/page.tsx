@@ -1,7 +1,7 @@
 export default function Page() {
   return (
-    <div>
-      <h1>No need authorize page</h1>
+    <div className="wrapper">
+      <h1>Free access page</h1>
     </div>
   );
 }
