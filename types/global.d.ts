@@ -5,6 +5,8 @@ declare interface ISession {
     email?: string;
     last_login?: string;
     role?: string;
+    image?: string;
   };
   token?: string;
+  credentials?: string;
 }

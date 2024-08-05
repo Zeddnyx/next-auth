@@ -36,10 +36,12 @@ const LoadingProvider = ({ children }: { children: ReactNode }) => {
     <LoadingContext.Provider value={{ loading, setLoading, clearLoading }}>
       {loading && (
         <div className="lds-ring-container">
-          <div className="lds-ring">
-            <div />
-            <div />
-            <div />
+          <div>
+            <div className="lds-ring">
+              <div />
+              <div />
+              <div />
+            </div>
           </div>
         </div>
       )}

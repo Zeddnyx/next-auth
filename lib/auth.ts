@@ -99,7 +99,6 @@ const auth: NextAuthOptions = {
     },
     async session({ session, token }: any) {
       session.token = token.token;
-      session.name = token.name || session?.user?.name;
       session.credentials = token.credentials;
       return session;
     },

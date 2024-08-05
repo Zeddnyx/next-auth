@@ -77,6 +77,7 @@ button.google {
   background: #fff;
   color: #1f1f1f;
 }
+
 .switch_auth:has(button:hover)>button:not(:hover) {
   background: transparent !important;
   color: #ffffff90 !important;
@@ -111,6 +112,12 @@ button.google {
   background-color: rgba(0, 0, 0, 0.8);
 }
 
+.lds-ring-container>div {
+  background: #1f1f1f;
+  padding: 10px;
+  border-radius: 10px;
+}
+
 .lds-ring,
 .lds-ring div {
   box-sizing: border-box;
@@ -131,7 +138,7 @@ button.google {
   width: 64px;
   height: 64px;
   margin: 8px;
-  border: 8px solid currentColor;
+  border: 5px solid currentColor;
   border-radius: 50%;
   animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
   border-color: currentColor transparent transparent transparent;
