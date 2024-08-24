@@ -57,6 +57,8 @@ export default function Form() {
           placeholder="Password"
           value={form.password}
           onChange={(e) => setForm({ ...form, password: e.target.value })}
+          minLength={6}
+          maxLength={20}
         />
 
         <button type="submit">Sign in</button>

@@ -7,6 +7,7 @@ class Client {
     register: (data: { name: string; email: string; password: string }) => {
       return Http.post("/auth/register", data);
     },
+    me: (token: string) => Http.get("/auth/me", null, token),
   };
 }
 

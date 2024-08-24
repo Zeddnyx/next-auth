@@ -37,8 +37,8 @@ button:disabled {
 
 .wrapper {
   width: max-content;
-  height: 95vh;
-  margin: 10px auto;
+  height: 100vh;
+  margin: auto;
   display: flex;
   flex-direction: column;
   gap: 20px;

@@ -1,7 +1,10 @@
 import { Axios } from "./interceptor";
 
 export class Http {
-  static async get<T>(url: string, params?: unknown) {
+  static async get<T>(url: string, params?: unknown,token?:string) {
+    if (token) {
+      Axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    }
     const response = await Axios.get<T>(url, { params });
     return response.data;
   }

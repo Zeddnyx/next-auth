@@ -20,6 +20,9 @@ export default function Form() {
         redirect: false,
       }).then((res) => {
         if (res?.ok) {
+          // signIn(authCredentials.me, {
+          //   redirect: false,
+          // }).then((res) => {
           window.location.href = "/";
         }
       });
@@ -49,6 +52,8 @@ export default function Form() {
           name="password"
           placeholder="Password"
           value={form.password}
+          minLength={6}
+          maxLength={20}
           onChange={(e) => setForm({ ...form, password: e.target.value })}
         />
 
