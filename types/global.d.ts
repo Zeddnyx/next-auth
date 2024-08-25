@@ -10,3 +10,17 @@ declare interface ISession {
   token?: string;
   credentials?: string;
 }
+
+// AUTH
+declare interface ISignIn {
+  email: string;
+  password?: string;
+  login_via: string;
+}
+declare interface ISignUp {
+  name: string;
+  email: string;
+  password: string;
+  login_via: string;
+  role: string;
+}

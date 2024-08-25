@@ -20,9 +20,6 @@ export default function Form() {
         redirect: false,
       }).then((res) => {
         if (res?.ok) {
-          // signIn(authCredentials.me, {
-          //   redirect: false,
-          // }).then((res) => {
           window.location.href = "/";
         }
       });
@@ -57,7 +54,7 @@ export default function Form() {
           onChange={(e) => setForm({ ...form, password: e.target.value })}
         />
 
-        <button type="submit">Sign in</button>
+        <button type="submit">Submit</button>
       </form>
       <button className="google" type="button" onClick={handleGoogle}>
         Google

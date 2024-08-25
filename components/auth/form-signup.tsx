@@ -18,6 +18,7 @@ export default function Form() {
         name: form.name,
         email: form.email,
         password: form.password,
+        redirect: false,
       }).then((res) => {
         if (res?.ok) {
           window.location.href = "/sign-in";
@@ -43,6 +44,7 @@ export default function Form() {
           placeholder="name"
           value={form.name}
           onChange={(e) => setForm({ ...form, name: e.target.value })}
+          minLength={4}
         />
         <input
           type="email"
@@ -61,7 +63,7 @@ export default function Form() {
           maxLength={20}
         />
 
-        <button type="submit">Sign in</button>
+        <button type="submit">Submit</button>
       </form>
       <button className="google" type="button" onClick={handleGoogle}>
         Google

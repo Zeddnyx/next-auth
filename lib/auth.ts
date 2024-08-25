@@ -38,6 +38,8 @@ const auth: NextAuthOptions = {
           name: credentials?.name,
           email: credentials?.email,
           password: credentials?.password,
+          login_via: "EMAIL",
+          role: "user",
         };
         try {
           const data: any = await Http.auth.register({ ...payload });
@@ -59,6 +61,7 @@ const auth: NextAuthOptions = {
         const payload = {
           email: credentials?.email,
           password: credentials?.password,
+          login_via: "EMAIL",
         };
         try {
           const { data }: any = await Http.auth.login({ ...payload });
@@ -67,8 +70,8 @@ const auth: NextAuthOptions = {
             token: data?.token,
             email: credentials?.email,
             name: data?.user?.name,
+            image: userInfo?.user?.avatar,
             role: userInfo?.user?.role,
-            last_login: userInfo?.user?.last_login,
           };
         } catch (error: any) {
           throw new Error(error?.response?.data?.message);
@@ -78,7 +81,24 @@ const auth: NextAuthOptions = {
   ],
   callbacks: {
     async jwt({ token, account, user }: any) {
-      const { signIn, signUp, resetPassword, me } = authCredentials;
+      const { signIn, signUp, resetPassword, me, google } = authCredentials;
+
+      if (account?.provider === google) {
+        const payload = { login_via: "EMAIL", email: token?.email };
+
+        try {
+          const { data }: any = await Http.auth.login({ ...payload });
+          return {
+            token: data.user_otp.token || account?.access_token,
+            email: token?.email,
+            credentials: signIn,
+            name: token?.name,
+          };
+        } catch (error: any) {
+          throw new Error(error?.response?.data?.message);
+        }
+      }
+
       if (
         account?.provider === signIn ||
         account?.provider === signUp ||
@@ -87,8 +107,8 @@ const auth: NextAuthOptions = {
         token.token = user?.token;
         token.email = user?.email;
         token.name = user?.name;
+        token.image = user?.image;
         token.role = user?.role;
-        token.last_login = user?.last_login;
         if (account?.provider) {
           switch (account?.provider) {
             case signIn:
@@ -113,7 +133,6 @@ const auth: NextAuthOptions = {
     },
     async session({ session, token }: any) {
       session.role = token.role;
-      session.last_login = token.last_login;
       session.token = token.token;
       session.credentials = token.credentials;
       return session;
