@@ -41,3 +41,10 @@
   color: #1f1f1f !important;
   border: 1px solid #fff !important;
 }
+
+.verify_container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+

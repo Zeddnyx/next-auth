@@ -78,10 +78,35 @@ const auth: NextAuthOptions = {
         }
       },
     }),
+    CredentialsProvider({
+      id: authCredentials.verify,
+      name: "Complete your otp",
+      credentials: {},
+      async authorize(credentials: any): Promise<any> {
+        const session: any = await getServerSession(auth);
+        const payload = {
+          otp: credentials?.otp,
+        };
+        console.log(payload, "otp");
+        try {
+          return {
+            name: session?.user?.name,
+            email: session?.user?.email,
+            image: session?.user?.image,
+            token: session?.token,
+            role: session?.role,
+            credentials: authCredentials.verify,
+          };
+        } catch (error: any) {
+          throw new Error(error?.response?.data?.message);
+        }
+      },
+    }),
   ],
   callbacks: {
     async jwt({ token, account, user }: any) {
-      const { signIn, signUp, resetPassword, me, google } = authCredentials;
+      const { signIn, signUp, resetPassword, verify, me, google } =
+        authCredentials;
 
       if (account?.provider === google) {
         const payload = { login_via: "EMAIL", email: token?.email };
@@ -102,7 +127,8 @@ const auth: NextAuthOptions = {
       if (
         account?.provider === signIn ||
         account?.provider === signUp ||
-        account?.provider === resetPassword
+        account?.provider === resetPassword ||
+        account?.provider === verify
       ) {
         token.token = user?.token;
         token.email = user?.email;
@@ -119,6 +145,9 @@ const auth: NextAuthOptions = {
               break;
             case resetPassword:
               token.credentials = resetPassword;
+              break;
+            case verify:
+              token.credentials = verify;
               break;
             case me:
               token.credentials = me;

@@ -1,9 +1,7 @@
 "use client";
 import { signIn } from "next-auth/react";
 import { useState } from "react";
-
-import { authCredentials } from "@/configs/credentials";
-import { useLoading } from "../layout/layout-loading";
+import { authCredentials } from "@/configs/credentials"; import { useLoading } from "../layout/layout-loading";
 import styles from "@/styles/modules/auth.module.css";
 
 export default function Form({ page }: { page: "sigin" | "signup" }) {
@@ -22,7 +20,7 @@ export default function Form({ page }: { page: "sigin" | "signup" }) {
           redirect: false,
         }).then((res) => {
           if (res?.ok) {
-            window.location.href = "/";
+            window.location.href = "/verify";
           }
         });
       else
