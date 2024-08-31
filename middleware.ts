@@ -6,6 +6,10 @@ const UNAUTHENTICATED_PATHS = ["/free", "/sign-in", "/sign-up"];
 
 export default withAuth(
   function middleware(request: NextRequestWithAuth) {
+    // get pathaname ssr way:)
+    const requestHeaders = new Headers(request.headers);
+    requestHeaders.set("x-pathname", request.nextUrl.pathname);
+
     const pathname = request.nextUrl?.pathname;
     const token = request.nextauth.token;
 
@@ -13,7 +17,11 @@ export default withAuth(
       return NextResponse.redirect(new URL("/sign-in", request.url));
     }
 
-    return NextResponse.next();
+    return NextResponse.next({
+      request: {
+        headers: requestHeaders,
+      },
+    });
   },
   {
     secret: configs.NEXTAUTH_SECRET,
