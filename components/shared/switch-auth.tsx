@@ -1,6 +1,7 @@
 "use client";
 
 import { usePathname, useRouter } from "next/navigation";
+import styles from "@/styles/modules/auth.module.css";
 
 export default function SwitchAuth() {
   const { push } = useRouter();
@@ -16,10 +17,10 @@ export default function SwitchAuth() {
   };
 
   return (
-    <div className="switch_auth">
+    <div className={styles.switch_auth}>
       <button
         onClick={() => handlePush("sign-in")}
-        className={isSignIn ? "switch_auth_on" : ""}
+        className={isSignIn ? styles.switch_auth_on : ""}
         style={{ borderRadius: "50px 0 0 50px" }}
         disabled={isSignIn}
         type="button"
@@ -28,7 +29,7 @@ export default function SwitchAuth() {
       </button>
       <button
         onClick={() => handlePush("sign-up")}
-        className={!isSignIn ? "switch_auth_on" : ""}
+        className={!isSignIn ? styles.switch_auth_on : ""}
         style={{ borderRadius: "0 50px 50px 0" }}
         disabled={!isSignIn}
         type="button"
