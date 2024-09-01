@@ -8,8 +8,6 @@ import React, {
   useEffect,
 } from "react";
 
-import styles from "@/styles/modules/auth.module.css";
-
 interface LoadingContextType {
   loading: boolean;
   setLoading: () => void;
@@ -37,9 +35,9 @@ const LoadingProvider = ({ children }: { children: ReactNode }) => {
   return (
     <LoadingContext.Provider value={{ loading, setLoading, clearLoading }}>
       {loading && (
-        <div className={styles.container}>
+        <div className="circle_container">
           <div>
-            <div className={styles.circle}>
+            <div className="circle">
               <div />
               <div />
               <div />

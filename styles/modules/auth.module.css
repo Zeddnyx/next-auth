@@ -20,7 +20,7 @@
 
 .switch_auth>*:hover {
   opacity: 100%;
-  background: #fff;
+  background: var(--foreground);
   color: #1f1f1f;
 }
 
@@ -37,9 +37,9 @@
 }
 
 .switch_auth_on {
-  background: #fff !important;
+  background: var(--foreground) !important;
   color: #1f1f1f !important;
-  border: 1px solid #fff !important;
+  border: 1px solid var(--foreground) !important;
 }
 
 .verify_container {
@@ -48,3 +48,51 @@
   gap: 5px;
 }
 
+/* ON BOARDING */
+.onboarding_container {
+  text-align: center;
+  padding: 20px;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.onboarding_container>button {
+  width: clamp(10rem, 100%, 10rem);
+}
+
+.onboarding_slide {
+  margin-bottom: 20px;
+  display: flex;
+  overflow-x: hidden;
+}
+
+.onboarding_slide>div {
+  width: 100%;
+  flex-shrink: 0;
+  flex-grow: 1;
+  transition: all 0.5s ease;
+}
+
+.onboarding_controls {
+  display: flex;
+  justify-content: space-between;
+}
+
+.onboarding_progress {
+  margin-top: 20px;
+}
+
+.progress_dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin: 20px 5px;
+  border-radius: 50%;
+  background-color: var(--foreground);
+}
+
+.progress_dot.active {
+  background-color: blue;
+}
+
+/* END ON BOARDING */

@@ -96,6 +96,7 @@ const auth: NextAuthOptions = {
             token: session?.token,
             role: session?.role,
             credentials: authCredentials.verify,
+            onBoarding: true,
           };
         } catch (error: any) {
           throw new Error(error?.response?.data?.message);
@@ -135,6 +136,7 @@ const auth: NextAuthOptions = {
         token.name = user?.name;
         token.image = user?.image;
         token.role = user?.role;
+        token.onBoarding = true;
         if (account?.provider) {
           switch (account?.provider) {
             case signIn:
@@ -163,6 +165,7 @@ const auth: NextAuthOptions = {
     async session({ session, token }: any) {
       session.role = token.role;
       session.token = token.token;
+      session.onBoarding = token.onBoarding;
       session.credentials = token.credentials;
       return session;
     },

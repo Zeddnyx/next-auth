@@ -10,17 +10,12 @@ export default function FormVerify({ email }: { email: string }) {
     const otp = event.currentTarget.otp.value;
     await signIn(authCredentials.verify, {
       otp,
-      redirect: false,
-    }).then((res) => {
-      if (res?.ok) {
-        window.location.href = "/";
-      }
     });
   };
   return (
     <form className={styles.verify_container} onSubmit={handleSubmit}>
       <p>Check your email {hideEmail(email)}</p>
-      <input placeholder="123456" name="otp" type="number" required />
+      <input placeholder="123456" name="otp" type="number" required autoFocus />
       <button className="submit" type="submit">
         Submit
       </button>

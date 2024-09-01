@@ -8,7 +8,10 @@ export default async function Page() {
   const session: any = await getServerSession(auth);
   const isVerified = session?.credentials == authCredentials.verify;
   const isToken = session?.token;
-  if (isVerified) {
+  const isOnBoarding = session?.onBoarding;
+  if (isVerified && isOnBoarding) {
+    redirect("/on-boarding");
+  } else if (isVerified && !isOnBoarding) {
     redirect("/");
   } else if (!isToken) {
     redirect("/sign-in");

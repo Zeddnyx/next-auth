@@ -1,5 +1,5 @@
 import Form from "@/components/auth/form";
 
 export default function Page() {
-  return <Form page="sigin" />;
+  return <Form page="signin" />;
 }

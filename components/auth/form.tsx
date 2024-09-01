@@ -1,10 +1,11 @@
 "use client";
 import { signIn } from "next-auth/react";
 import { useState } from "react";
-import { authCredentials } from "@/configs/credentials"; import { useLoading } from "../layout/layout-loading";
+import { authCredentials } from "@/configs/credentials";
+import { useLoading } from "../layout/layout-loading";
 import styles from "@/styles/modules/auth.module.css";
 
-export default function Form({ page }: { page: "sigin" | "signup" }) {
+export default function Form({ page }: { page: "signin" | "signup" }) {
   const [form, setForm] = useState({ email: "", password: "", name: "" });
   const { setLoading, clearLoading } = useLoading();
 
@@ -13,7 +14,7 @@ export default function Form({ page }: { page: "sigin" | "signup" }) {
     if (!form.email || !form.password) return;
     setLoading();
     try {
-      if (page === "sigin")
+      if (page === "signin")
         await signIn(authCredentials.signIn, {
           email: form.email,
           password: form.password,
@@ -53,6 +54,7 @@ export default function Form({ page }: { page: "sigin" | "signup" }) {
             type="text"
             name="name"
             placeholder="name"
+            autoFocus={page === "signup"}
             value={form.name}
             onChange={(e) => setForm({ ...form, name: e.target.value })}
             minLength={4}
@@ -62,6 +64,7 @@ export default function Form({ page }: { page: "sigin" | "signup" }) {
           type="email"
           name="email"
           placeholder="Email"
+          autoFocus={page === "signin"}
           value={form.email}
           onChange={(e) => setForm({ ...form, email: e.target.value })}
         />
