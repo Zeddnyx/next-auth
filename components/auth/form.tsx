@@ -7,6 +7,7 @@ import styles from "@/styles/modules/auth.module.css";
 
 export default function Form({ page }: { page: "signin" | "signup" }) {
   const [form, setForm] = useState({ email: "", password: "", name: "" });
+  const [msgError, setMsgError] = useState("");
   const { setLoading, clearLoading } = useLoading();
 
   const handleSubmit = async (event: any) => {
@@ -14,17 +15,16 @@ export default function Form({ page }: { page: "signin" | "signup" }) {
     if (!form.email || !form.password) return;
     setLoading();
     try {
-      if (page === "signin")
-        await signIn(authCredentials.signIn, {
+      if (page === "signin") {
+        const res = await signIn(authCredentials.signIn, {
           email: form.email,
           password: form.password,
           redirect: false,
-        }).then((res) => {
-          if (res?.ok) {
-            window.location.href = "/verify";
-          }
         });
-      else
+        if (res?.error) {
+          setMsgError(res.error);
+        }
+      } else
         await signIn(authCredentials.signUp, {
           name: form.name,
           email: form.email,
@@ -36,7 +36,7 @@ export default function Form({ page }: { page: "signin" | "signup" }) {
           }
         });
     } catch (error) {
-      console.error("Error during sign up:", error);
+      console.log(error, "errrrr");
     } finally {
       clearLoading();
     }
@@ -49,6 +49,7 @@ export default function Form({ page }: { page: "signin" | "signup" }) {
   return (
     <div className={styles.sign_parent}>
       <form className={styles.sign_form} onSubmit={handleSubmit}>
+        {msgError && <p>{msgError}</p>}
         {page === "signup" && (
           <input
             type="text"
