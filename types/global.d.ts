@@ -8,6 +8,7 @@ declare interface ISession {
     image?: string;
   };
   token?: string;
+  refresh_token?: string;
   credentials?: string;
 }
 

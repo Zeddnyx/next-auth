@@ -16,27 +16,6 @@ export async function getSession() {
   return session;
 }
 
-async function refreshAccessToken(token: any) {
-  try {
-    const refreshedTokens: any = await Http.auth.refreshToken(
-      token.refresh_token,
-    );
-
-    return {
-      ...token,
-      accessToken: refreshedTokens.accessToken,
-      accessTokenExpires: Date.now() + refreshedTokens.expiresIn * 1000, // Set new expiration time
-      refresh_token: refreshedTokens.refreshToken || token.refreshToken, // Refresh token may stay the same
-    };
-  } catch (error) {
-    console.error("Failed to refresh access token", error);
-    return {
-      ...token,
-      error: "RefreshAccessTokenError",
-    };
-  }
-}
-
 const auth: NextAuthOptions = {
   session: {
     strategy: "jwt",
@@ -118,7 +97,7 @@ const auth: NextAuthOptions = {
             email: session?.user?.email,
             image: session?.user?.image,
             token: session?.token,
-            refresh_token: session?.refresh_token, 
+            refresh_token: session?.refresh_token,
             role: session?.role,
             credentials: authCredentials.verify,
             onBoarding: true,
@@ -186,11 +165,7 @@ const auth: NextAuthOptions = {
           }
         }
       }
-      if (Date.now() < token.accessTokenExpires) {
-        return token;
-      }
-
-      return await refreshAccessToken(token);
+      return token;
     },
     async session({ session, token }: any) {
       session.role = token.role;
