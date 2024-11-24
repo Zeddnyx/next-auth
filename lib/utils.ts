@@ -1,3 +1,5 @@
+import { ROLES, TPermisions, TRole } from "./constants";
+
 export function hideEmail(email: string): string {
   const [username, domain] = email.split("@");
   if (username.length <= 2) {
@@ -11,4 +13,11 @@ export function hideEmail(email: string): string {
   )}${username.slice(-1)}`;
 
   return `${hiddenUsername}@${domain}`;
+}
+
+export function hasPermision(
+  user: { id: string; role: TRole },
+  permision: TPermisions,
+) {
+  return (ROLES[user.role] as readonly TPermisions[]).includes(permision);
 }

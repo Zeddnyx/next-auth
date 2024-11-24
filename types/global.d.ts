@@ -16,12 +16,10 @@ declare interface ISession {
 declare interface ISignIn {
   email: string;
   password?: string;
-  login_via: string;
+  rememberMe?: boolean;
 }
 declare interface ISignUp {
   name: string;
   email: string;
   password: string;
-  login_via: string;
-  role: string;
 }

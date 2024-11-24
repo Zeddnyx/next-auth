@@ -31,7 +31,7 @@ async function refreshAccessToken(token: any) {
 export const Axios = axios.create({
   baseURL: configs.URL_API,
   headers: {
-    apiKey: configs.API_KEY,
+    'api-key': configs.API_KEY,
   },
 });
 

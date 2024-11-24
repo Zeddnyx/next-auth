@@ -39,14 +39,12 @@ const auth: NextAuthOptions = {
           name: credentials?.name,
           email: credentials?.email,
           password: credentials?.password,
-          login_via: "EMAIL",
-          role: "user",
         };
         try {
           const data: any = await Http.auth.register({ ...payload });
           return {
             token: data.token,
-            refresh_token: data.refresh_token, // dummy
+            refresh_token: data.refreshToken, // dummy
             email: credentials?.email,
             name: credentials?.name,
           };
@@ -63,18 +61,19 @@ const auth: NextAuthOptions = {
         const payload = {
           email: credentials?.email,
           password: credentials?.password,
-          login_via: "EMAIL",
+          rememberMe: true,
         };
         try {
           const { data }: any = await Http.auth.login({ ...payload });
-          const { data: userInfo }: any = await Http.auth.me(data?.token);
+          // const { data: userInfo }: any = await Http.auth.me(data?.token);
+          console.log(data)
           return {
             token: data?.token,
-            refresh_token: data?.refresh_token, // dummy
+            refresh_token: data?.refreshToken, // dummy
             email: credentials?.email,
             name: data?.user?.name,
-            image: userInfo?.user?.avatar,
-            role: userInfo?.user?.role,
+            // image: userInfo?.user?.avatar,
+            // role: userInfo?.user?.role,
           };
         } catch (error: any) {
           throw new Error(error?.response?.data?.message);

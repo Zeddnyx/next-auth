@@ -2,9 +2,8 @@ import { Http } from "@/configs/http/http-method";
 
 class Client {
   auth = {
-    refreshToken: (token: string) =>
-      Http.post("/auth/refresh-token", { token }), // dummy
-    login: (data: ISignIn) => Http.post("/auth/sign-in", data),
+    refreshToken: (token: string) => Http.post("/auth/refresh", { token }),
+    login: (data: ISignIn) => Http.post("/auth/login", data),
     register: (data: ISignUp) => {
       return Http.post("/auth/register", data);
     },
