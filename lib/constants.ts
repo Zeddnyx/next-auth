@@ -14,3 +14,5 @@ export const ROLES = {
   moderator: ["view:comments", "delete:comments", "view:users"],
   user: ["view:comments", "create:comments"],
 };
+
+export const USER: { id: string; role: TRole } = { id: "1", role: "admin" };
